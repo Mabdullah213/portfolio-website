@@ -1,0 +1,66 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  background-color: #000000; /* Deep Black for background */
+  color: #FFFFFF; /* Bright White for text */
+  background-image: radial-gradient(circle, rgba(74, 144, 226, 0.2), rgba(106, 90, 205, 0.1) 70%, rgba(0, 0, 0, 0.8)),
+    url('https://www.transparenttextures.com/patterns/black-linen.png'); /* Subtle gradient and textured pattern */
+  background-size: cover; /* Ensure the texture fills the background */
+}
+
+section {
+  margin: 0;
+  padding: 20px; /* Added padding for consistency */
+  border: none; /* Remove any borders */
+  box-shadow: none; /* Remove shadows */
+  background-color: transparent; /* Ensure background is consistent */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #FFFFFF; /* Bright White for headings */
+  margin: 0;
+}
+
+p {
+  color: #E0E0E0; /* Lunar Gray for subtle text contrast */
+  line-height: 1.6;
+  margin: 0 0 10px;
+}
+
+a {
+  color: #4A90E2; /* Vibrant Blue for links */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #6A5ACD; /* Muted Purple on hover */
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4A90E2; /* Vibrant Blue for buttons */
+  color: #FFFFFF; /* Bright White for text */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #6A5ACD; /* Muted Purple on hover */
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for images */
+}
+
+* {
+  box-sizing: border-box; /* Ensure consistent border-box model */
+}
