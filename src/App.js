@@ -1,11 +1,18 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
-import About from './components/About';
 import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
+import Footer from './components/Footer';
 
 function App() {
+  // Since dark mode is always on, we simply enforce it.
+  React.useEffect(() => {
+    // Set the overall document styles for dark theme.
+    document.body.style.backgroundColor = '#121212';
+    document.body.style.color = '#E0E0E0';
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -13,17 +20,14 @@ function App() {
         <section id="home" style={styles.section}>
           <Home />
         </section>
-        
         <section id="portfolio" style={styles.section}>
           <Portfolio />
         </section>
-        <section id="about" style={{ ...styles.section}}>
-          <About />
-        </section>
-        <section id="contact" style={{ ...styles.section}}>
+        <section id="contact" style={styles.section}>
           <Contact />
         </section>
       </main>
+      <Footer />
     </>
   );
 }
@@ -33,6 +37,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    backgroundColor: '#121212',
   },
   section: {
     width: '100%',

@@ -1,40 +1,59 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-function Resume() {
-  const sections = [
+function Portfolio() {
+  const allCards = [
     {
-      title: 'Education',
-      description: `Bachelor of Science in Computer Science \nUniversity of South Dakota, Vermillion, SD\n\n Relevant Coursework: Data Structures, Algorithms, Pattern Recognition and Machine Learning`,
+      title: 'IT Support Specialist, USD',
+      subtitle: 'Jan 2023 – Present',
+      category: 'Experience',
+      description: `• Optimized incident management with TeamDynamix – resolved 50+ issues/week.
+• Collaborated for rapid technical solutions.`,
     },
     {
-      title: 'Job Experience',
-      description: `IT Support Intern | USD ITS\n Assisted with technical support, resolving issues for staff and students efficiently.\n\nResident Assistant | USD Housing \n Managed and supported 40+ residents, fostering community and providing guidance.\n`,
+      title: 'Resident Assistant, USD',
+      subtitle: 'Jan 2024 – Present',
+      category: 'Experience',
+      description: `• Enhanced community support and resident engagement.
+• Maintained safe environments.`,
     },
     {
-      title: 'Skills',
-      description: `Web Development, Data handling, Manipulation, and Visualization with the following technologies:\nJava, Python, C++, Office 365 , SQL, HTMl/CSS, JavaScript, Github, Git, React, Express, GCP, Kubernetes, Jira, Google Pub/Sub`,
+      title: 'FitNex – Fitness Plan Generator',
+      category: 'Project',
+      description: `• Developed full-stack app with React, TypeScript & Tailwind.
+• Integrated Supabase Auth and JWT-secured FastAPI.
+• Engineered a Python algorithm for personalized plans.`,
     },
     {
-      title: 'Awards and Recognition',
-      description: `Coyote Commitment Scholarship\nGlobal Community Scholarship\n Ambassador Scholar Award`,
+      title: 'ML Algorithms Comparison – Healthcare Data Classification',
+      category: 'Project',
+      description: `• Evaluated Random Forest, SVM, & Logistic Regression on NIH Chest X-ray data.
+• Optimized performance with preprocessing & tuning.`,
     },
     {
-      title: 'Realtime Surveillance System',
-      description: `detail will be added later `,
+      title: 'Personal Portfolio Website',
+      category: 'Project',
+      description: `• Built a responsive React site using React Router & CSS Modules.
+• Emphasized accessibility, performance & modern design.`,
     },
     {
-      title: 'Healthcare Diagnostic Assistant',
-      description: `details will be added later`,
+      title: 'Technologies',
+      category: 'Tech',
+      description:
+        `• Java • Python • C++ • Office 365 • SQL  
+• HTML/CSS • JavaScript • Bazel • Github • Git  
+• Kotlin • XML • React (Material UI, Router) • FastAPI • Supabase`,
     },
   ];
 
-  const containerRef = React.useRef(null);
+  const [filter, setFilter] = useState('All');
+  const filteredCards = filter === 'All' ? allCards : allCards.filter(card => card.category === filter);
+  const containerRef = useRef(null);
   const inView = useInView(containerRef, { threshold: 0.1 });
 
   return (
     <motion.section
-      id="resume"
+      id="portfolio"
       style={styles.container}
       ref={containerRef}
       initial={{ opacity: 0 }}
@@ -49,20 +68,23 @@ function Resume() {
       >
         My Resume
       </motion.h2>
+      <div style={styles.filterContainer}>
+        <button style={styles.filterButton} onClick={() => setFilter('All')}>All</button>
+        <button style={styles.filterButton} onClick={() => setFilter('Experience')}>Experience</button>
+        <button style={styles.filterButton} onClick={() => setFilter('Project')}>Projects</button>
+        <button style={styles.filterButton} onClick={() => setFilter('Tech')}>Technologies</button>
+      </div>
       <motion.div
-        style={styles.sectionsContainer}
+        style={styles.cardsContainer}
         initial="hidden"
-        animate={inView ? "visible" : "hidden"}
+        animate={inView ? 'visible' : 'hidden'}
         variants={containerVariants}
       >
-        {sections.map((section, index) => (
-          <motion.div
-            key={index}
-            style={styles.sectionCard}
-            variants={itemVariants}
-          >
-            <h3 style={styles.cardTitle}>{section.title}</h3>
-            <p style={styles.cardDescription}>{section.description}</p>
+        {filteredCards.map((card, index) => (
+          <motion.div key={index} style={styles.card} variants={itemVariants}>
+            <h3 style={styles.cardTitle}>{card.title}</h3>
+            {card.subtitle && <h4 style={styles.cardSubtitle}>{card.subtitle}</h4>}
+            <p style={styles.cardDescription}>{card.description}</p>
           </motion.div>
         ))}
       </motion.div>
@@ -72,11 +94,9 @@ function Resume() {
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
+  visible: { 
     opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
+    transition: { staggerChildren: 0.2 }
   },
 };
 
@@ -88,46 +108,61 @@ const itemVariants = {
 const styles = {
   container: {
     padding: '60px 20px',
-    backgroundColor: '#000000', // Deep Black background
-    color: '#FFFFFF', // Bright White for text
+    backgroundColor: '#121212', // Dark overall
+    color: '#E0E0E0',           // Light text
     textAlign: 'center',
-    overflow: 'hidden',
+    fontFamily: 'Roboto, sans-serif',
   },
   heading: {
     fontSize: '32px',
     marginBottom: '20px',
-    color: '#FFFFFF', // Bright White for heading
+    color: '#E0E0E0',
+    fontWeight: 700,
   },
-  sectionsContainer: {
+  filterContainer: {
+    marginBottom: '20px',
+  },
+  filterButton: {
+    fontSize: '16px',
+    margin: '0 10px',
+    padding: '8px 16px',
+    borderRadius: '4px',
+    border: '1px solid #8FA998',
+    background: 'none',
+    color: '#E0E0E0',
+    cursor: 'pointer',
+  },
+  cardsContainer: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
     gap: '20px',
     justifyContent: 'center',
   },
-  sectionCard: {
-    backgroundColor: '#6A5ACD', // Muted Purple for card background
+  card: {
+    backgroundColor: '#1E2320', // Dark greenish card background
     padding: '20px',
     borderRadius: '8px',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    color: '#FFFFFF',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.4)',
+    textAlign: 'left',
+    whiteSpace: 'pre-line',
     transition: 'transform 0.3s, box-shadow 0.3s',
-  },
-  sectionCardHover: {
-    transform: 'scale(1.05)',
-    boxShadow: '0 6px 10px rgba(0, 0, 0, 0.3)',
   },
   cardTitle: {
     fontSize: '20px',
-    fontWeight: 'bold',
+    fontWeight: 600,
+    marginBottom: '8px',
+    color: '#8FA998', // Accent for titles
+  },
+  cardSubtitle: {
+    fontSize: '16px',
+    fontWeight: 500,
     marginBottom: '10px',
-    color: '#FFFFFF', // Bright White for card title
+    color: '#6E7F68',
   },
   cardDescription: {
     fontSize: '16px',
-    marginBottom: '15px',
-    whiteSpace: 'pre-line', // Preserves line breaks
-    color: '#E0E0E0', // Lunar Gray for description
+    color: '#CCCCCC',
   },
 };
 
-export default Resume;
+export default Portfolio;
